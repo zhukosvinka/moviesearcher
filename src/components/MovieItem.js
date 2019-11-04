@@ -31,7 +31,7 @@ const Title = styled.h3`
 
 const MovieItem = ({movieData}) => {
   return (
-    <Wrapper to={`movie/${movieData.id}`}>
+    <Wrapper to={`/movie/${movieData.id}`}>
       <MovieImage src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}/>
       <Title>{movieData.title}</Title>
     </Wrapper>

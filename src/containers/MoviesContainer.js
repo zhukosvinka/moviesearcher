@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ContentContainer, MoviesList, Loader } from '../components';
-import { getMoviesData } from '../actions/moviesListActions';
+import { getMoviesData, getMoviesByGenre } from '../actions/moviesListActions';
 
-const MoviesContainer = ({ type, title }) => {
-  const moviesData = useSelector(({ moviesListReducer }) => moviesListReducer[type]);
+const MoviesContainer = ({ type, title, genreType }) => {
+  const moviesData = useSelector(({ moviesListReducer }) =>
+    genreType ? moviesListReducer.moviesByGenre : moviesListReducer[type],
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMoviesData(type));
-  }, [type, dispatch]);
+    if (genreType) dispatch(getMoviesByGenre(genreType.genreId));
+    else dispatch(getMoviesData(type));
+  }, [type, dispatch, genreType]);
 
   const isMoviesDataLoaded = !moviesData.isLoading && moviesData.data.results;
 
   return (
-    <ContentContainer title={title}>
+    <ContentContainer title={title ? title : moviesData.title}>
       {isMoviesDataLoaded ? <MoviesList movies={moviesData.data.results} /> : <Loader />}
     </ContentContainer>
   );
