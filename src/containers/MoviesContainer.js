@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ContentContainer, MoviesList, Loader } from '../components';
 import { getMoviesData } from '../actions/moviesListActions';
 
-const MoviesContainer = ({ type, title, getMoviesData, moviesData }) => {
+const MoviesContainer = ({ type, title }) => {
+  const moviesData = useSelector(({ moviesListReducer }) => moviesListReducer[type]);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getMoviesData(type);
-  }, [getMoviesData, type]);
+    dispatch(getMoviesData(type));
+  }, [type, dispatch]);
 
   const isMoviesDataLoaded = !moviesData.isLoading && moviesData.data.results;
 
@@ -17,11 +21,4 @@ const MoviesContainer = ({ type, title, getMoviesData, moviesData }) => {
   );
 };
 
-export default connect(
-  ({ moviesListReducer }, { type }) => ({
-    moviesData: moviesListReducer[type],
-  }),
-  {
-    getMoviesData,
-  },
-)(MoviesContainer);
+export default MoviesContainer;
