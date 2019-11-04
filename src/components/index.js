@@ -1,0 +1,7 @@
+export {default as Header} from './Header'
+export {default as ContentContainer} from './ContentContainer'
+export {default as Footer} from './Footer'
+export {default as MoviesList} from './MoviesList'
+export {default as Loader} from './Loader'
+export {default as MovieItem} from './MovieItem'
+export {default as MovieInfo} from './MovieInfo'

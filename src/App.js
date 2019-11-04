@@ -1,25 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import {Route, Switch} from 'react-router-dom'
+import GlobalStyle from './styles/styled-components/globalStyle'
+import {Header, Footer} from './components'
+import MoviesContainer from './containers/MoviesContainer'
+import MovieInfoContainer from './containers/MovieInfoContainer'
+
+const AllWrapper = styled.div`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+`
+
+const Main = styled.main`
+  margin: 10px;
+  flex: 1;
+`
+
+const MOVIES = [
+  {
+    title: 'Popular Movies',
+    type: 'popular'
+  },
+  {
+    title: 'Top Rated Movies',
+    type: 'top_rated'
+  }
+]
 
 function App() {
+  const renderMovies = () => MOVIES.map(({title, type}) => <MoviesContainer key={type} title={title} type={type}/>)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AllWrapper>
+      <GlobalStyle/>
+      <Header/>
+      <Main>
+        <Switch>
+          <Route component={MovieInfoContainer} path='/movie/:movieId'/>
+          <Route component={() => renderMovies()} exact path='/'/>
+        </Switch>
+      </Main>
+      <Footer/>
+    </AllWrapper>
   );
 }
 

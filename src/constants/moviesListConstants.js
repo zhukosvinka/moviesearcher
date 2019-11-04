@@ -1,0 +1,1 @@
+export const GET_MOVIES_DATA = 'GET_MOVIES_DATA'
