@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContentContainer, Loader } from '../components';
+import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -65,21 +67,30 @@ const GenreItem = styled(Link)`
 
 const FavoritesButton = styled.div`
   padding: 10px;
-  background-color: #3f7fbf;
+  background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#a93f3f' : '#3f7fbf'};
   color: #fff;
   border-radius: 5px;
   display: inline-block;
   cursor: pointer;
   &:hover {
-    background-color: #316ba6;
+    background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#843636' : '#316ba6'};
   }
   &:active {
     background-color: #2f6091;
+    background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#662929' : '#2f6091'};
   }
-`
+`;
 
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
-  const { title, poster_path, release_date, tagline, overview, genres } = movieData;
+  const { title, poster_path, release_date, tagline, overview, genres, id } = movieData;
+
+  const favoritesMovies = useSelector(
+    ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
+  );
+
+  const isMovieInFavorites = favoritesMovies && favoritesMovies.find(movie => movie.id === id);
+
+  const dispatch = useDispatch();
 
   const renderGenresList = (
     <GenreList>
@@ -125,9 +136,10 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
                   <DescriptionText>{item.type}</DescriptionText>
                 </DescriptionItem>
               ))}
-              <FavoritesButton>Add to favorites</FavoritesButton>
+              <FavoritesButton isMovieInFavorites={isMovieInFavorites} onClick={() => dispatch(toggleFavoritesMovie(movieData))}>
+                {isMovieInFavorites ? 'Remove from favorites' : 'Add to favorites'}
+              </FavoritesButton>
             </MovieDescription>
-
           </ContentWrapper>
         ) : (
           <Loader />

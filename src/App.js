@@ -5,6 +5,7 @@ import GlobalStyle from './styles/styled-components/globalStyle';
 import { Header, Footer } from './components';
 import MoviesContainer from './containers/MoviesContainer';
 import MovieInfoContainer from './containers/MovieInfoContainer';
+import FavoritesMoviesContainer from './containers/FavoritesMoviesContainer';
 
 const AllWrapper = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ function App() {
       <GlobalStyle />
       <Header />
       <Main>
+        <FavoritesMoviesContainer/>
         <Switch>
           <Route
             render={({ match }) => (
