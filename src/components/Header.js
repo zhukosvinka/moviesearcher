@@ -15,8 +15,12 @@ const HeaderWrapper = styled.header`
 const HeaderLink = styled(Link)`
   text-decoration: none;
   color: #fff;
+  font-weight: 600;
   &:hover {
     opacity: .8;
+  }
+  &:active {
+    opacity: .6;
   }
 `
 
