@@ -1,16 +1,16 @@
-.item-enter {
+.favorite-movie-item-enter {
   opacity: 0;
   transform: translateY(-10px);
 }
-.item-enter-active {
+.favorite-movie-item-enter-active {
   opacity: 1;
   transform: translateY(0);
   transition: 500ms ease-in !important;
 }
-.item-exit {
+.favorite-movie-item-exit {
   opacity: 1;
 }
-.item-exit-active {
+.favorite-movie-item-exit-active {
   opacity: 0;
   transition: 500ms ease-in !important;
 }

@@ -12,14 +12,18 @@ const FavoritesMoviesContainer = () => {
   const renderFavoritesList = () => (
     <TransitionGroup className="todo-list">
       {favoritesMovies.map(movie => (
-        <CSSTransition key={movie.id} timeout={500} classNames="item">
+        <CSSTransition key={movie.id} timeout={500} classNames="favorite-movie-item">
           <MovieItem isFavorite movieData={movie} />
         </CSSTransition>
       ))}
     </TransitionGroup>
   );
 
-  return <ContentContainer title="Favorites">{renderFavoritesList()}</ContentContainer>;
+  return (
+    <ContentContainer title="Favorites">
+      {favoritesMovies.length > 0 ? renderFavoritesList() : 'Favorites list is empty'}
+    </ContentContainer>
+  );
 };
 
 export default FavoritesMoviesContainer;

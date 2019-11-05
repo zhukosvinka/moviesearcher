@@ -11,9 +11,13 @@ const List = styled.ul`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
 `
 
-const MoviesList = ({movies}) => {
+const MoviesList = ({movies, max}) => {
+  if(max) movies = movies.slice(0, max)
+  
   return (
     <Wrapper>
       <List>
@@ -26,7 +30,8 @@ const MoviesList = ({movies}) => {
 }
 
 MoviesList.propTypes = {
-  movies: PropTypes.array.isRequired
+  movies: PropTypes.array.isRequired,
+  max: PropTypes.number
 }
 
 export default MoviesList

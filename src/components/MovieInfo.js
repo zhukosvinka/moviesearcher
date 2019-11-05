@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ContentContainer, Loader } from '../components';
+import { ContentContainer, Loader, MoviesList } from '../components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 
 const ContentWrapper = styled.div`
@@ -47,6 +47,7 @@ const DescriptionText = styled.span``;
 
 const GenreList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -82,8 +83,13 @@ const FavoritesButton = styled.div`
   }
 `;
 
+const RecommendationsTitle = styled(DescriptionTitle)`
+  margin-top: 20px;
+  display: block;
+`
+
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
-  const { title, poster_path, release_date, tagline, overview, genres, id } = movieData;
+  const { title, poster_path, release_date, tagline, overview, genres, id, recommendations } = movieData;
 
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
@@ -123,6 +129,13 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
     },
   ];
 
+  const renderRecommendations = () => (
+    <>
+      <RecommendationsTitle>Recommendations: </RecommendationsTitle>
+      <MoviesList max={5} movies={recommendations.results}/>
+    </>
+  )
+
   return (
     <>
       <ContentContainer title={title}>
@@ -145,6 +158,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
         ) : (
           <Loader />
         )}
+        {isMovieInfoDataLoaded && renderRecommendations()}
       </ContentContainer>
     </>
   );

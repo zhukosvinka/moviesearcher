@@ -19,7 +19,8 @@ export default (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
-      data: action.payload
+      data: action.payload.movieInfo,
+      recommendations: action.payload.movieRecommendations
     }
 
   default:

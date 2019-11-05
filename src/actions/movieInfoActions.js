@@ -1,20 +1,33 @@
 import { API_KEY } from '../config';
-import {LOAD_START} from '../constants'
-import {GET_MOVIE_DATA} from '../constants/movieInfoConstants'
-import {loadData} from '../helpers/loadData'
+import { LOAD_START } from '../constants';
+import { GET_MOVIE_DATA } from '../constants/movieInfoConstants';
+import { loadData } from '../helpers/loadData';
 
-export const getMovieData = (movieId) => {
+const loadMovieDataAndRecomendations = movieId =>
+  new Promise(resolve => {
+    Promise.all([
+      loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`),
+      loadData(
+        `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`,
+      ),
+    ]).then(response => resolve(response));
+  });
+
+export const getMovieData = movieId => {
   return async dispatch => {
-
     dispatch({
-      type: GET_MOVIE_DATA + LOAD_START
-    })
+      type: GET_MOVIE_DATA + LOAD_START,
+    });
 
-    const moviesData = await loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`)
+    const moviesData = await loadMovieDataAndRecomendations(movieId);
+
+    moviesData[0].recommendations = moviesData[1];
 
     dispatch({
       type: GET_MOVIE_DATA,
-      payload: moviesData
+      payload: {
+        movieInfo: moviesData[0],
+      },
     });
   };
 };
