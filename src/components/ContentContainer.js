@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -9,13 +10,13 @@ const Wrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0px 9px 10px 1px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  max-height: ${({ isHidden }) => (isHidden ? '15px' : 'auto')};
+  max-height: ${({ isHidden }) => (isHidden ? '10px' : 'auto')};
   position: relative;
 `;
 
 const Title = styled.h2`
   margin: 0;
-  font-size: 18px;
+  font-size: 14px;
   color: #444444;
   margin-bottom: 10px;
 `;
@@ -48,5 +49,10 @@ const ContentContainer = ({ children, title }) => {
     </Wrapper>
   );
 };
+
+ContentContainer.propTypes = {
+  children: PropTypes.node,
+  title: PropTypes.string
+}
 
 export default ContentContainer;

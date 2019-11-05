@@ -30,7 +30,6 @@ export default (state = initialState, action) => {
     }
 
   case GET_MOVIES_BY_GENRE_DATA:
-    console.log(action.payload)
     return {
       ...state,
       moviesByGenre: {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {MovieItem} from '../components'
 
@@ -22,6 +23,10 @@ const MoviesList = ({movies}) => {
       </List>
     </Wrapper>
   )
+}
+
+MoviesList.propTypes = {
+  movies: PropTypes.array.isRequired
 }
 
 export default MoviesList

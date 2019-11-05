@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -61,9 +62,8 @@ const RemoveButton = styled.div`
   background-color: #a93f3f;
   border-radius: 5px;
   color: #fff;
-  width: 30px;
   height: 20px;
-  width: 20px;
+  min-width: 20px;
   text-align: center;
   background-image: url(${deleteIcon});
   background-size: 16px 16px;
@@ -102,5 +102,10 @@ const MovieItem = ({ movieData, isFavorite }) => {
 
   return isFavorite ? isFavoriteRender() : defaultRender();
 };
+
+MovieItem.propTypes = {
+  movieData: PropTypes.object.isRequired,
+  isFavorite: PropTypes.bool
+}
 
 export default MovieItem;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -148,5 +149,10 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
     </>
   );
 };
+
+MovieInfo.propTypes = {
+  movieData: PropTypes.object.isRequired,
+  isMovieInfoDataLoaded: PropTypes.bool.isRequired
+}
 
 export default MovieInfo;

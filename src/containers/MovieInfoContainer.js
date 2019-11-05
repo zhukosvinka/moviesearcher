@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieData } from '../actions/movieInfoActions';
 import { MovieInfo } from '../components';
@@ -19,5 +20,9 @@ const MovieInfoContainer = ({ match }) => {
 
   return <MovieInfo isMovieInfoDataLoaded={isMovieInfoDataLoaded} movieData={movieData} />;
 };
+
+MovieInfoContainer.propTypes = {
+  match: PropTypes.object.isRequired
+}
 
 export default MovieInfoContainer;
