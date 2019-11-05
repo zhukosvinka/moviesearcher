@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -44,6 +44,7 @@ const FavoriteWrapper = styled(Link)`
   text-decoration: none;
   align-items: center;
   transition: transform 0.2s ease;
+  /* height: 54px; */
   &:hover {
     transform: translateY(-3px);
   }
@@ -105,7 +106,7 @@ const MovieItem = ({ movieData, isFavorite }) => {
 
 MovieItem.propTypes = {
   movieData: PropTypes.object.isRequired,
-  isFavorite: PropTypes.bool
-}
+  isFavorite: PropTypes.bool,
+};
 
 export default MovieItem;

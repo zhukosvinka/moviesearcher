@@ -1,3 +1,20 @@
+.item-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 500ms ease-in !important;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: 500ms ease-in !important;
+}
+
 .lds-ring {
   display: inline-block;
   position: relative;
