@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { ContentContainer, MoviesList, Loader } from '../components';
+import { ContentContainer, MoviesList, Loader, Pagination } from '../components';
 import { getMoviesData, getMoviesByGenre } from '../actions/moviesListActions';
 
-const ShowMoreBtnWrapper = styled.div`
+const BottomContentWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -22,7 +22,7 @@ const ShowMore = styled(Link)`
   margin: 20px 0 10px 0;
 `;
 
-const MoviesContainer = ({ type, title, genreType }) => {
+const MoviesContainer = ({ type, title, genreType, page, url }) => {
   const moviesData = useSelector(({ moviesListReducer }) =>
     genreType ? moviesListReducer.moviesByGenre : moviesListReducer[type],
   );
@@ -30,9 +30,9 @@ const MoviesContainer = ({ type, title, genreType }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (genreType) dispatch(getMoviesByGenre(genreType.genreId));
-    else dispatch(getMoviesData(type));
-  }, [type, dispatch, genreType]);
+    if (genreType) dispatch(getMoviesByGenre(genreType.genreId, page));
+    else dispatch(getMoviesData(type, page));
+  }, [type, dispatch, genreType, page]);
 
   const isMoviesDataLoaded = !moviesData.isLoading && moviesData.data.results;
 
@@ -40,9 +40,17 @@ const MoviesContainer = ({ type, title, genreType }) => {
     <ContentContainer title={title ? title : moviesData.title}>
       {isMoviesDataLoaded ? <MoviesList movies={moviesData.data.results} /> : <Loader />}
       {isMoviesDataLoaded && (
-        <ShowMoreBtnWrapper>
-          <ShowMore to="/">Show more</ShowMore>
-        </ShowMoreBtnWrapper>
+        <BottomContentWrapper>
+          {!page ? (
+            <ShowMore to={`/movies/${type}/page/1`}>Show more</ShowMore>
+          ) : (
+            <Pagination
+              currentUrl={url}
+              currentPage={page}
+              totalPages={moviesData.data.total_pages}
+            />
+          )}
+        </BottomContentWrapper>
       )}
     </ContentContainer>
   );

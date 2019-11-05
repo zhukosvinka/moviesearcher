@@ -104,7 +104,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
       {genres &&
         genres.map(genre => (
           <li key={genre.id}>
-            <GenreItem to={`/genre/${genre.id}`}>{genre.name}</GenreItem>
+            <GenreItem to={`/genre/${genre.id}/page/1`}>{genre.name}</GenreItem>
           </li>
         ))}
     </GenreList>
