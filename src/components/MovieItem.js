@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 import deleteIcon from '../img/icons/delete.svg';
+import noPosterImg from '../img/no-poster-img.jpg';
 
 const Wrapper = styled(Link)`
   display: flex;
@@ -44,7 +45,6 @@ const FavoriteWrapper = styled(Link)`
   text-decoration: none;
   align-items: center;
   transition: transform 0.2s ease;
-  /* height: 54px; */
   &:hover {
     transform: translateY(-3px);
   }
@@ -88,14 +88,14 @@ const MovieItem = ({ movieData, isFavorite }) => {
 
   const defaultRender = () => (
     <Wrapper to={`/movie/${movieData.id}`}>
-      <MovieImage src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} />
+      <MovieImage src={movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : noPosterImg} />
       <Title>{movieData.title}</Title>
     </Wrapper>
   );
 
   const isFavoriteRender = () => (
     <FavoriteWrapper to={`/movie/${movieData.id}`}>
-      <FavoriteImage src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} />
+      <FavoriteImage src={movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : noPosterImg} />
       <Title>{movieData.title}</Title>
       <RemoveButton onClick={removeFromFavorites} />
     </FavoriteWrapper>

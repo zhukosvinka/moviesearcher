@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContentContainer, Loader, MoviesList } from '../components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
+import noPosterImg from '../img/no-poster-img.jpg';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -69,27 +70,36 @@ const GenreItem = styled(Link)`
 
 const FavoritesButton = styled.div`
   padding: 10px;
-  background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#a93f3f' : '#3f7fbf'};
+  background-color: ${({ isMovieInFavorites }) => (isMovieInFavorites ? '#a93f3f' : '#3f7fbf')};
   color: #fff;
   border-radius: 5px;
   display: inline-block;
   cursor: pointer;
   &:hover {
-    background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#843636' : '#316ba6'};
+    background-color: ${({ isMovieInFavorites }) => (isMovieInFavorites ? '#843636' : '#316ba6')};
   }
   &:active {
     background-color: #2f6091;
-    background-color: ${({isMovieInFavorites}) => isMovieInFavorites ? '#662929' : '#2f6091'};
+    background-color: ${({ isMovieInFavorites }) => (isMovieInFavorites ? '#662929' : '#2f6091')};
   }
 `;
 
 const RecommendationsTitle = styled(DescriptionTitle)`
   margin-top: 20px;
   display: block;
-`
+`;
 
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
-  const { title, poster_path, release_date, tagline, overview, genres, id, recommendations } = movieData;
+  const {
+    title,
+    poster_path,
+    release_date,
+    tagline,
+    overview,
+    genres,
+    id,
+    recommendations,
+  } = movieData;
 
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
@@ -132,25 +142,33 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
   const renderRecommendations = () => (
     <>
       <RecommendationsTitle>Recommendations: </RecommendationsTitle>
-      <MoviesList max={5} movies={recommendations.results}/>
+      <MoviesList max={5} movies={recommendations.results} />
     </>
-  )
+  );
 
   return (
     <>
       <ContentContainer title={title}>
         {isMovieInfoDataLoaded ? (
           <ContentWrapper>
-            <MovieImage src={`https://image.tmdb.org/t/p/w500/${poster_path}`} />
+            <MovieImage
+              src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : noPosterImg}
+            />
 
             <MovieDescription>
-              {descriptionItems.map(item => (
-                <DescriptionItem key={item.title}>
-                  <DescriptionTitle>{`${item.title}: `}</DescriptionTitle>
-                  <DescriptionText>{item.type}</DescriptionText>
-                </DescriptionItem>
-              ))}
-              <FavoritesButton isMovieInFavorites={isMovieInFavorites} onClick={() => dispatch(toggleFavoritesMovie(movieData))}>
+              {descriptionItems.map(item => {
+                if (!item.type) return null;
+                return (
+                  <DescriptionItem key={item.title}>
+                    <DescriptionTitle>{`${item.title}: `}</DescriptionTitle>
+                    <DescriptionText>{item.type}</DescriptionText>
+                  </DescriptionItem>
+                );
+              })}
+              <FavoritesButton
+                isMovieInFavorites={isMovieInFavorites}
+                onClick={() => dispatch(toggleFavoritesMovie(movieData))}
+              >
                 {isMovieInFavorites ? 'Remove from favorites' : 'Add to favorites'}
               </FavoritesButton>
             </MovieDescription>
@@ -166,7 +184,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
 
 MovieInfo.propTypes = {
   movieData: PropTypes.object.isRequired,
-  isMovieInfoDataLoaded: PropTypes.bool.isRequired
-}
+  isMovieInfoDataLoaded: PropTypes.bool.isRequired,
+};
 
 export default MovieInfo;
