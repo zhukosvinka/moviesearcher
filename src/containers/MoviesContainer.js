@@ -20,6 +20,12 @@ const ShowMore = styled(Link)`
   display: inline-block;
   padding: 10px;
   margin: 20px 0 10px 0;
+  &:hover {
+    background-color: #316ba6;
+  }
+  &:active {
+    background-color: #2f6091;
+  }
 `;
 
 const MoviesContainer = ({ type, title, genreType, page, url }) => {
@@ -60,6 +66,8 @@ MoviesContainer.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   genreType: PropTypes.object,
+  page: PropTypes.string,
+  url: PropTypes.string,
 };
 
 export default MoviesContainer;

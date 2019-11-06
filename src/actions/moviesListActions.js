@@ -1,7 +1,11 @@
-import { GET_MOVIES_DATA, GET_MOVIES_BY_GENRE_DATA } from '../constants/moviesListConstants';
+import {
+  GET_MOVIES_DATA,
+  GET_MOVIES_BY_GENRE_DATA,
+  GET_MOVIES_BY_SEARCH,
+} from '../constants/moviesListConstants';
 import { LOAD_START } from '../constants';
 import { API_KEY } from '../config';
-import { loadData } from '../helpers/loadData';
+import { loadData } from '../helpers';
 
 const getMoviesByGenreAndGenreTitle = async genreId => {
   const data = await Promise.all([
@@ -11,6 +15,23 @@ const getMoviesByGenreAndGenreTitle = async genreId => {
     loadData(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`),
   ]);
   return data;
+};
+
+export const getMoviesBySearch = query => {
+  return async dispatch => {
+    dispatch({
+      type: GET_MOVIES_BY_SEARCH + LOAD_START,
+    });
+
+    const findedMovies = await loadData(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`,
+    );
+
+    dispatch({
+      type: GET_MOVIES_BY_SEARCH,
+      payload: findedMovies,
+    });
+  };
 };
 
 export const getMoviesData = (dataType, page = 1) => {

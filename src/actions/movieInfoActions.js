@@ -1,7 +1,7 @@
 import { API_KEY } from '../config';
 import { LOAD_START } from '../constants';
 import { GET_MOVIE_DATA } from '../constants/movieInfoConstants';
-import { loadData } from '../helpers/loadData';
+import { loadData } from '../helpers';
 
 const loadMovieDataAndRecomendations = movieId =>
   new Promise(resolve => {

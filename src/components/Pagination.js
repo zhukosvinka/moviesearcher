@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -33,9 +34,9 @@ const Button = styled(Link)`
 `;
 
 const Pagination = ({ totalPages, currentPage, currentUrl }) => {
-  const nextPageNumber = Number(currentPage) === totalPages ? currentPage : Number(currentPage) + 1;
+  const nextPageNumber = +currentPage === totalPages ? currentPage : +currentPage + 1;
 
-  const prevPageNumber = Number(currentPage) === 1 ? '1' : Number(currentPage) - 1;
+  const prevPageNumber = +currentPage === 1 ? '1' : +currentPage - 1;
 
   return (
     <Wrapper>
@@ -47,5 +48,11 @@ const Pagination = ({ totalPages, currentPage, currentUrl }) => {
     </Wrapper>
   );
 };
+
+Pagination.propTypes = {
+  totalPages: PropTypes.number.isRequired,
+  currentPage: PropTypes.string.isRequired,
+  currentUrl: PropTypes.string.isRequired
+}
 
 export default Pagination;

@@ -4,7 +4,7 @@ import backgroundImage from '../../img/background.png'
 const GlobalStyle = createGlobalStyle`
   body {
     background-image: url(${backgroundImage});
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     margin: 0;
     padding: 0;
