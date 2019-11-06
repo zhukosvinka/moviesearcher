@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -70,4 +70,4 @@ MoviesContainer.propTypes = {
   url: PropTypes.string,
 };
 
-export default MoviesContainer;
+export default memo(MoviesContainer);

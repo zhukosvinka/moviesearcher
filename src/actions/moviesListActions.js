@@ -7,10 +7,10 @@ import { LOAD_START } from '../constants';
 import { API_KEY } from '../config';
 import { loadData } from '../helpers';
 
-const getMoviesByGenreAndGenreTitle = async genreId => {
+const getMoviesByGenreAndGenreTitle = async (genreId, page) => {
   const data = await Promise.all([
     loadData(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genreId}`,
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genreId}`,
     ),
     loadData(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`),
   ]);
@@ -63,7 +63,7 @@ export const getMoviesByGenre = (genreId, page = 1) => {
       type: GET_MOVIES_BY_GENRE_DATA + LOAD_START,
     });
 
-    const moviesData = await getMoviesByGenreAndGenreTitle(genreId);
+    const moviesData = await getMoviesByGenreAndGenreTitle(genreId, page);
 
     dispatch({
       type: GET_MOVIES_BY_GENRE_DATA,

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const HeaderWrapper = styled.header`
   height: 60px;
-  background-color: #3F7FBF;
+  background-color: ${({theme}) => theme.isDarkModeEnable ? '#292929' : '#3F7FBF'};
   color: #fff;
   font-size: 20px;
   display: flex;
