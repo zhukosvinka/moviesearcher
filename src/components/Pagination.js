@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import withLocalization from '../hocs/withLocalization'
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ const Button = styled(Link)`
   }
 `;
 
-const Pagination = ({ totalPages, currentPage, currentUrl }) => {
+const Pagination = ({ totalPages, currentPage, currentUrl, localizeText }) => {
   const nextPageNumber = +currentPage === totalPages ? currentPage : +currentPage + 1;
 
   const prevPageNumber = +currentPage === 1 ? '1' : +currentPage - 1;
@@ -42,7 +43,7 @@ const Pagination = ({ totalPages, currentPage, currentUrl }) => {
     <Wrapper>
       <Button to={currentUrl.replace(/\d+$/gi, prevPageNumber)}>{'<'}</Button>
       <PageInformation>
-        Page <b>{currentPage}</b> of <b>{totalPages}</b>
+        {localizeText('page')} <b>{currentPage}</b> {localizeText('of')} <b>{totalPages}</b>
       </PageInformation>
       <Button to={currentUrl.replace(/\d+$/gi, nextPageNumber)}>{'>'}</Button>
     </Wrapper>
@@ -55,4 +56,4 @@ Pagination.propTypes = {
   currentUrl: PropTypes.string.isRequired
 }
 
-export default Pagination;
+export default withLocalization(Pagination);

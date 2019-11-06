@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ContentContainer, MovieItem } from '../components';
 import '../styles/css/style.css';
+import withLocalization from '../hocs/withLocalization'
 
-const FavoritesMoviesContainer = () => {
+const FavoritesMoviesContainer = ({localizeText}) => {
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
   );
@@ -20,10 +21,10 @@ const FavoritesMoviesContainer = () => {
   );
 
   return (
-    <ContentContainer title="Favorites">
+    <ContentContainer title={localizeText('favorites')}>
       {favoritesMovies.length > 0 ? renderFavoritesList() : 'Favorites list is empty'}
     </ContentContainer>
   );
 };
 
-export default FavoritesMoviesContainer;
+export default withLocalization(FavoritesMoviesContainer);

@@ -3,23 +3,23 @@ import { LOAD_START } from '../constants';
 import { GET_MOVIE_DATA } from '../constants/movieInfoConstants';
 import { loadData } from '../helpers';
 
-const loadMovieDataAndRecomendations = movieId =>
+const loadMovieDataAndRecomendations = (movieId, currentLang) =>
   new Promise(resolve => {
     Promise.all([
-      loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`),
+      loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=${currentLang}`),
       loadData(
-        `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=${currentLang}&page=1`,
       ),
     ]).then(response => resolve(response));
   });
 
-export const getMovieData = movieId => {
+export const getMovieData = (movieId, currentLang) => {
   return async dispatch => {
     dispatch({
       type: GET_MOVIE_DATA + LOAD_START,
     });
 
-    const moviesData = await loadMovieDataAndRecomendations(movieId);
+    const moviesData = await loadMovieDataAndRecomendations(movieId, currentLang);
 
     moviesData[0].recommendations = moviesData[1];
 

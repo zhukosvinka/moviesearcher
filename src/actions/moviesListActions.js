@@ -7,24 +7,25 @@ import { LOAD_START } from '../constants';
 import { API_KEY } from '../config';
 import { loadData } from '../helpers';
 
-const getMoviesByGenreAndGenreTitle = async (genreId, page) => {
+const getMoviesByGenreAndGenreTitle = async (genreId, page, currentLang) => {
   const data = await Promise.all([
     loadData(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genreId}`,
+      `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=${currentLang}&include_adult=false&include_video=false&page=${page}&with_genres=${genreId}`,
     ),
-    loadData(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`),
+    loadData(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${currentLang}`),
   ]);
   return data;
 };
 
-export const getMoviesBySearch = query => {
+export const getMoviesBySearch = (query, currentLang) => {
+  console.log(currentLang)
   return async dispatch => {
     dispatch({
       type: GET_MOVIES_BY_SEARCH + LOAD_START,
     });
 
     const findedMovies = await loadData(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=true`,
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=${currentLang}&query=${query}&page=1&include_adult=true`,
     );
 
     dispatch({
@@ -34,7 +35,7 @@ export const getMoviesBySearch = query => {
   };
 };
 
-export const getMoviesData = (dataType, page = 1) => {
+export const getMoviesData = (dataType, page = 1, currentLang) => {
   return async dispatch => {
     dispatch({
       type: GET_MOVIES_DATA + LOAD_START,
@@ -44,7 +45,7 @@ export const getMoviesData = (dataType, page = 1) => {
     });
 
     const moviesData = await loadData(
-      `https://api.themoviedb.org/3/movie/${dataType}?api_key=${API_KEY}&language=en-US&page=${page}`,
+      `https://api.themoviedb.org/3/movie/${dataType}?api_key=${API_KEY}&language=${currentLang}&page=${page}`,
     );
 
     dispatch({
@@ -57,13 +58,13 @@ export const getMoviesData = (dataType, page = 1) => {
   };
 };
 
-export const getMoviesByGenre = (genreId, page = 1) => {
+export const getMoviesByGenre = (genreId, page = 1, currentLang) => {
   return async dispatch => {
     dispatch({
       type: GET_MOVIES_BY_GENRE_DATA + LOAD_START,
     });
 
-    const moviesData = await getMoviesByGenreAndGenreTitle(genreId, page);
+    const moviesData = await getMoviesByGenreAndGenreTitle(genreId, page, currentLang);
 
     dispatch({
       type: GET_MOVIES_BY_GENRE_DATA,

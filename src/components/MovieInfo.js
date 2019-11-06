@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ContentContainer, Loader, MoviesList } from '../components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 import noPosterImg from '../img/no-poster-img.jpg';
+import withLocalization from '../hocs/withLocalization'
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -89,7 +90,7 @@ const RecommendationsTitle = styled(DescriptionTitle)`
   display: block;
 `;
 
-const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
+const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
   const {
     title,
     poster_path,
@@ -122,26 +123,26 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
 
   const descriptionItems = [
     {
-      title: 'Release date',
+      title: localizeText('releaseDate'),
       type: release_date,
     },
     {
-      title: 'Tagline',
+      title: localizeText('tagline'),
       type: tagline,
     },
     {
-      title: 'Description',
+      title: localizeText('description'),
       type: overview,
     },
     {
-      title: 'Genres',
+      title: localizeText('genres'),
       type: renderGenresList,
     },
   ];
 
   const renderRecommendations = () => (
     <>
-      <RecommendationsTitle>Recommendations: </RecommendationsTitle>
+      <RecommendationsTitle>{localizeText('recommendations')}: </RecommendationsTitle>
       <MoviesList max={5} movies={recommendations.results} />
     </>
   );
@@ -169,7 +170,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded }) => {
                 isMovieInFavorites={isMovieInFavorites}
                 onClick={() => dispatch(toggleFavoritesMovie(movieData))}
               >
-                {isMovieInFavorites ? 'Remove from favorites' : 'Add to favorites'}
+                {isMovieInFavorites ? localizeText('removeFromFavorites') : localizeText('addToFavorites')}
               </FavoritesButton>
             </MovieDescription>
           </ContentWrapper>
@@ -187,4 +188,4 @@ MovieInfo.propTypes = {
   isMovieInfoDataLoaded: PropTypes.bool.isRequired,
 };
 
-export default MovieInfo;
+export default withLocalization(MovieInfo);

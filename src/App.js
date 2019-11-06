@@ -9,6 +9,7 @@ import MovieInfoContainer from './containers/MovieInfoContainer';
 import FavoritesMoviesContainer from './containers/FavoritesMoviesContainer';
 import SearchMovieContainer from './containers/SearchMovieContainer';
 import SettingsPanelContainer from './containers/SettingsPanelContainer';
+import withLocaliztion from './hocs/withLocalization'
 
 const AllWrapper = styled.div`
   display: flex;
@@ -21,18 +22,19 @@ const Main = styled.main`
   flex: 1;
 `;
 
-const MOVIES = [
-  {
-    title: 'Popular Movies',
-    type: 'popular',
-  },
-  {
-    title: 'Top Rated Movies',
-    type: 'top_rated',
-  },
-];
+function App({localizeText}) {
 
-function App() {
+  const MOVIES = [
+    {
+      title: localizeText('popularMovies'),
+      type: 'popular',
+    },
+    {
+      title: localizeText('topRatedMovies'),
+      type: 'top_rated',
+    },
+  ];
+
   const [theme, setTheme] = useState({
     isDarkModeEnable:
       localStorage.getItem('isDarkModeEnable') !== null
@@ -50,7 +52,7 @@ function App() {
         <Header />
         <Main>
           <SettingsPanelContainer toggleDarkMode={setTheme} />
-          <SearchMovieContainer title="Search" />
+          <SearchMovieContainer title={localizeText('search')} />
           <FavoritesMoviesContainer />
           <Switch>
             <Route
@@ -83,4 +85,4 @@ function App() {
   );
 }
 
-export default App;
+export default withLocaliztion(App);

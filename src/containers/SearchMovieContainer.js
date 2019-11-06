@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ContentContainer, MoviesList, Loader } from '../components';
 import { debounce } from '../helpers';
 import { getMoviesBySearch } from '../actions/moviesListActions';
+import withLocalization from '../hocs/withLocalization'
 
 const Input = styled.input`
   width: 100%;
@@ -22,11 +23,12 @@ const NothingFound = styled.div`
   margin-top: 10px;
 `;
 
-const findMovies = debounce((inputValue, dispatch) => {
-  dispatch(getMoviesBySearch(inputValue));
+const findMovies = debounce((inputValue, dispatch, currentLang) => {
+  console.log(currentLang)
+  dispatch(getMoviesBySearch(inputValue, currentLang));
 }, 500);
 
-const SearchMovieContainer = ({ title }) => {
+const SearchMovieContainer = ({ title, localizeText, currentLang }) => {
   const [value, setValue] = useState('');
 
   const dispatch = useDispatch();
@@ -41,9 +43,9 @@ const SearchMovieContainer = ({ title }) => {
   const isFindedMoviesLoaded = !isLoading && findedMovies;
 
   const handleChange = e => {
-    if (e.target.value < 2) findMovies('', dispatch);
+    if (e.target.value < 2) findMovies('', dispatch, currentLang);
     setValue(e.target.value);
-    findMovies(e.target.value, dispatch);
+    findMovies(e.target.value, dispatch, currentLang);
   };
 
   const renderResult = () => {
@@ -57,10 +59,10 @@ const SearchMovieContainer = ({ title }) => {
 
   return (
     <ContentContainer title={title}>
-      <Input onChange={handleChange} placeholder="Search movies..." value={value} />
+      <Input onChange={handleChange} placeholder={localizeText('searchMovies')} value={value} />
       {renderResult()}
     </ContentContainer>
   );
 };
 
-export default SearchMovieContainer;
+export default withLocalization(SearchMovieContainer);

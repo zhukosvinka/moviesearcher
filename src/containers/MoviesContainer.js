@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ContentContainer, MoviesList, Loader, Pagination } from '../components';
 import { getMoviesData, getMoviesByGenre } from '../actions/moviesListActions';
+import withLocalization from '../hocs/withLocalization'
 
 const BottomContentWrapper = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ const ShowMore = styled(Link)`
   }
 `;
 
-const MoviesContainer = ({ type, title, genreType, page, url }) => {
+const MoviesContainer = ({ type, title, genreType, page, url, localizeText, currentLang }) => {
   const moviesData = useSelector(({ moviesListReducer }) =>
     genreType ? moviesListReducer.moviesByGenre : moviesListReducer[type],
   );
@@ -36,9 +37,9 @@ const MoviesContainer = ({ type, title, genreType, page, url }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (genreType) dispatch(getMoviesByGenre(genreType.genreId, page));
-    else dispatch(getMoviesData(type, page));
-  }, [type, dispatch, genreType, page]);
+    if (genreType) dispatch(getMoviesByGenre(genreType.genreId, page, currentLang));
+    else dispatch(getMoviesData(type, page, currentLang));
+  }, [type, dispatch, genreType, page, currentLang]);
 
   const isMoviesDataLoaded = !moviesData.isLoading && moviesData.data.results;
 
@@ -48,7 +49,7 @@ const MoviesContainer = ({ type, title, genreType, page, url }) => {
       {isMoviesDataLoaded && (
         <BottomContentWrapper>
           {!page ? (
-            <ShowMore to={`/movies/${type}/page/1`}>Show more</ShowMore>
+            <ShowMore to={`/movies/${type}/page/1`}>{localizeText('showMore')}</ShowMore>
           ) : (
             <Pagination
               currentUrl={url}
@@ -70,4 +71,4 @@ MoviesContainer.propTypes = {
   url: PropTypes.string,
 };
 
-export default memo(MoviesContainer);
+export default memo(withLocalization(MoviesContainer));
