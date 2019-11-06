@@ -9,7 +9,7 @@ import MovieInfoContainer from './containers/MovieInfoContainer';
 import FavoritesMoviesContainer from './containers/FavoritesMoviesContainer';
 import SearchMovieContainer from './containers/SearchMovieContainer';
 import SettingsPanelContainer from './containers/SettingsPanelContainer';
-import withLocaliztion from './hocs/withLocalization'
+import withLocaliztion from './hocs/withLocalization';
 
 const AllWrapper = styled.div`
   display: flex;
@@ -22,15 +22,14 @@ const Main = styled.main`
   flex: 1;
 `;
 
-function App({localizeText}) {
-
+function App({ localizeText }) {
   const MOVIES = [
     {
-      title: localizeText('popularMovies'),
+      title: localizeText('popular'),
       type: 'popular',
     },
     {
-      title: localizeText('topRatedMovies'),
+      title: localizeText('top_rated'),
       type: 'top_rated',
     },
   ];
@@ -58,6 +57,7 @@ function App({localizeText}) {
             <Route
               render={({ match }) => (
                 <MoviesContainer
+                  title={localizeText(match.params.moviesType)}
                   url={match.url}
                   page={match.params.page}
                   type={match.params.moviesType}

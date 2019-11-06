@@ -44,7 +44,7 @@ const ContentContainer = ({ children, title }) => {
   return (
     <Wrapper isHidden={isHidden}>
       <HideButton isHidden={isHidden} onClick={() => toggleIsHidden(!isHidden)}></HideButton>
-      <Title>{title}</Title>
+      <Title>{title && title[0].toUpperCase() + title.slice(1)}</Title>
       {children}
     </Wrapper>
   );

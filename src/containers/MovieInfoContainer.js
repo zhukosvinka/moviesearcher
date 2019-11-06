@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMovieData } from '../actions/movieInfoActions';
 import { MovieInfo } from '../components';
-import withLocalization from '../hocs/withLocalization'
+import withLocalization from '../hocs/withLocalization';
 
 const MovieInfoContainer = ({ match, currentLang }) => {
   const isLoading = useSelector(({ movieInfoReducer }) => movieInfoReducer.isLoading);
@@ -23,7 +23,7 @@ const MovieInfoContainer = ({ match, currentLang }) => {
 };
 
 MovieInfoContainer.propTypes = {
-  match: PropTypes.object.isRequired
-}
+  match: PropTypes.object.isRequired,
+};
 
 export default withLocalization(MovieInfoContainer);

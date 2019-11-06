@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ContentContainer, MoviesList, Loader, Pagination } from '../components';
 import { getMoviesData, getMoviesByGenre } from '../actions/moviesListActions';
-import withLocalization from '../hocs/withLocalization'
+import withLocalization from '../hocs/withLocalization';
 
 const BottomContentWrapper = styled.div`
   display: flex;
