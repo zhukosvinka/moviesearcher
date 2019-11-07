@@ -24,7 +24,6 @@ const NothingFound = styled.div`
 `;
 
 const findMovies = debounce((inputValue, dispatch, currentLang) => {
-  console.log(currentLang)
   dispatch(getMoviesBySearch(inputValue, currentLang));
 }, 500);
 

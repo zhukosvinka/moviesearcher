@@ -18,7 +18,6 @@ const getMoviesByGenreAndGenreTitle = async (genreId, page, currentLang) => {
 };
 
 export const getMoviesBySearch = (query, currentLang) => {
-  console.log(currentLang)
   return async dispatch => {
     dispatch({
       type: GET_MOVIES_BY_SEARCH + LOAD_START,

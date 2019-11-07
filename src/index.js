@@ -4,11 +4,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import App from './App';
+import {ScrollToTop} from './components'
 import './styles/css/style.css';
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
+      <ScrollToTop/>
       <App />
     </Router>
   </Provider>,
