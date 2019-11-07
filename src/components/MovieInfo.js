@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ContentContainer, Loader, MoviesList } from '../components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 import noPosterImg from '../img/no-poster-img.jpg';
-import withLocalization from '../hocs/withLocalization'
+import withLocalization from '../hocs/withLocalization';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -17,10 +17,11 @@ const ContentWrapper = styled.div`
 
 const MovieImage = styled.img`
   width: 300px;
-  height: auto;
+  height: 500px;
   border-radius: 5px;
   @media screen and (max-width: 500px) {
     width: 100%;
+    height: auto;
   }
 `;
 
@@ -74,7 +75,8 @@ const FavoritesButton = styled.div`
   background-color: ${({ isMovieInFavorites }) => (isMovieInFavorites ? '#a93f3f' : '#3f7fbf')};
   color: #fff;
   border-radius: 5px;
-  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
   cursor: pointer;
   &:hover {
     background-color: ${({ isMovieInFavorites }) => (isMovieInFavorites ? '#843636' : '#316ba6')};
@@ -90,6 +92,41 @@ const RecommendationsTitle = styled(DescriptionTitle)`
   display: block;
 `;
 
+const CastList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+`;
+
+const PersonItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #e3e3e3;
+  }
+`;
+
+const PersonImage = styled.img`
+  width: 60px;
+  height: auto;
+`;
+
+const PersonInfo = styled.div`
+  margin-left: 10px;
+  color: #444444;
+`;
+
+const PersonName = styled.div`
+  font-weight: 600;
+`;
+
+const PersonCharacter = styled.div``;
+
+const LeftSide = styled.div``;
+
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
   const {
     title,
@@ -100,7 +137,10 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     genres,
     id,
     recommendations,
+    cast,
   } = movieData;
+
+  console.log(cast);
 
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
@@ -121,6 +161,29 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     </GenreList>
   );
 
+  const renderCastList = (
+    <CastList>
+      {cast &&
+        cast.slice(0, 5).map((person, i) => {
+          return (
+            <PersonItem key={person.id}>
+              <PersonImage
+                src={
+                  person.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${person.profile_path}`
+                    : noPosterImg
+                }
+              />
+              <PersonInfo id="person-info">
+                <PersonName>{person.name}</PersonName>
+                <PersonCharacter>{person.character}</PersonCharacter>
+              </PersonInfo>
+            </PersonItem>
+          );
+        })}
+    </CastList>
+  );
+
   const descriptionItems = [
     {
       title: localizeText('releaseDate'),
@@ -138,6 +201,10 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
       title: localizeText('genres'),
       type: renderGenresList,
     },
+    {
+      title: localizeText('cast'),
+      type: renderCastList,
+    },
   ];
 
   const renderRecommendations = () => (
@@ -152,9 +219,19 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
       <ContentContainer title={title}>
         {isMovieInfoDataLoaded ? (
           <ContentWrapper>
-            <MovieImage
-              src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : noPosterImg}
-            />
+            <LeftSide>
+              <MovieImage
+                src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : noPosterImg}
+              />
+              <FavoritesButton
+                isMovieInFavorites={isMovieInFavorites}
+                onClick={() => dispatch(toggleFavoritesMovie(movieData))}
+              >
+                {isMovieInFavorites
+                  ? localizeText('removeFromFavorites')
+                  : localizeText('addToFavorites')}
+              </FavoritesButton>
+            </LeftSide>
 
             <MovieDescription>
               {descriptionItems.map(item => {
@@ -166,12 +243,6 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
                   </DescriptionItem>
                 );
               })}
-              <FavoritesButton
-                isMovieInFavorites={isMovieInFavorites}
-                onClick={() => dispatch(toggleFavoritesMovie(movieData))}
-              >
-                {isMovieInFavorites ? localizeText('removeFromFavorites') : localizeText('addToFavorites')}
-              </FavoritesButton>
             </MovieDescription>
           </ContentWrapper>
         ) : (

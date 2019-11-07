@@ -15,4 +15,5 @@ export const LOCALIZATION = {
   of: ['из', 'of'],
   addToFavorites: ['Добавить в избранные', 'Add to favorites'],
   removeFromFavorites: ['Убрать из избранного', 'Remove from favorites'],
+  cast: ['Актёрский состав', 'Cast']
 };

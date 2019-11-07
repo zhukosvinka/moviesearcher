@@ -6,10 +6,11 @@ import { loadData } from '../helpers';
 const loadMovieDataAndRecomendations = (movieId, currentLang) =>
   new Promise(resolve => {
     Promise.all([
-      loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=${currentLang}`),
+      loadData(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=${currentLang}&with_cast`),
       loadData(
         `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${API_KEY}&language=${currentLang}&page=1`,
       ),
+      loadData(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}&language=${currentLang}`)
     ]).then(response => resolve(response));
   });
 
@@ -22,6 +23,7 @@ export const getMovieData = (movieId, currentLang) => {
     const moviesData = await loadMovieDataAndRecomendations(movieId, currentLang);
 
     moviesData[0].recommendations = moviesData[1];
+    moviesData[0].cast = moviesData[2].cast;
 
     dispatch({
       type: GET_MOVIE_DATA,

@@ -31,7 +31,7 @@ const Page = styled(Link)`
   border-bottom: 1px solid #e3e3e3;
   padding: 8px 0;
   cursor: pointer;
-  background-color: ${({ isActive }) => (isActive ? '#e3e3e3' : '#fff')};
+  background-color: ${({ active }) => (active ? '#e3e3e3' : '#fff')};
   text-align: center;
   flex-grow: 1;
   &:hover {
@@ -88,7 +88,7 @@ const Pagination = ({ totalPages, currentPage, currentUrl }) => {
         {pages.map(pageNumber => (
           <Page
             to={currentUrl.replace(/\d+$/gi, pageNumber)}
-            isActive={pageNumber === +currentPage}
+            active={pageNumber === +currentPage ? 1 : 0}
             key={pageNumber}
           >
             {pageNumber}
