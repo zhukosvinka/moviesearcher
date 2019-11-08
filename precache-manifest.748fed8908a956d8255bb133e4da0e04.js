@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cbacd08126e2a8a9968e1850ad28e578",
+    "revision": "f0cc1e4e461e8070a5b3ffe2b7af5231",
     "url": "/moviesearcher/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/moviesearcher/static/css/2.62027c08.chunk.css"
   },
   {
-    "revision": "ffac91bfafa151ae5fbc",
+    "revision": "d5aec4044f10a55a6e03",
     "url": "/moviesearcher/static/css/main.1f020f5c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/moviesearcher/static/js/2.6543f637.chunk.js"
   },
   {
-    "revision": "ffac91bfafa151ae5fbc",
-    "url": "/moviesearcher/static/js/main.441c600f.chunk.js"
+    "revision": "d5aec4044f10a55a6e03",
+    "url": "/moviesearcher/static/js/main.6568f6ca.chunk.js"
   },
   {
     "revision": "446b2d6e104e4b805136",
