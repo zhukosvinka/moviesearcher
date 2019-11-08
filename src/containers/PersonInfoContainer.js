@@ -12,6 +12,8 @@ const PersonInfoContainer = ({match, currentLang}) => {
   const isLoading = useSelector(({ personInfoReducer }) => personInfoReducer.isLoading);
   const personData = useSelector(({ personInfoReducer }) => personInfoReducer.data);
 
+  console.log('persobn')
+
   const personId = match.params.personId;
 
   useEffect(() => {
