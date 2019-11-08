@@ -77,7 +77,7 @@ function App({ localizeText }) {
               path="/moviesearcher/genre/:genreId/page/:page"
             />
             <Route component={MovieInfoContainer} path="/moviesearcher/movie/:movieId" />
-            <Route component={PersonInfoContainer} path="moviesearcher/person/:personId" />
+            <Route component={PersonInfoContainer} path="/moviesearcher/person/:personId" />
             <Route component={() => renderMovies()} exact path="/moviesearcher/" />
           </Switch>
         </Main>
