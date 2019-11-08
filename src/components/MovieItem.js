@@ -87,14 +87,14 @@ const MovieItem = ({ movieData, isFavorite }) => {
   };
 
   const defaultRender = () => (
-    <Wrapper to={`/movie/${movieData.id}`}>
+    <Wrapper to={`/moviesearcher/movie/${movieData.id}`}>
       <MovieImage src={movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : noPosterImg} />
       <Title>{movieData.title}</Title>
     </Wrapper>
   );
 
   const isFavoriteRender = () => (
-    <FavoriteWrapper to={`/movie/${movieData.id}`}>
+    <FavoriteWrapper to={`/moviesearcher/movie/${movieData.id}`}>
       <FavoriteImage src={movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : noPosterImg} />
       <Title>{movieData.title}</Title>
       <RemoveButton onClick={removeFromFavorites} />

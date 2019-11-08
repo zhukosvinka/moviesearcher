@@ -49,7 +49,7 @@ const MoviesContainer = ({ type, title, genreType, page, url, localizeText, curr
       {isMoviesDataLoaded && (
         <BottomContentWrapper>
           {!page ? (
-            <ShowMore to={`/movies/${type}/page/1`}>{localizeText('showMore')}</ShowMore>
+            <ShowMore to={`/moviesearcher/movies/${type}/page/1`}>{localizeText('showMore')}</ShowMore>
           ) : (
             <Pagination
               currentUrl={url}

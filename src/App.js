@@ -64,7 +64,7 @@ function App({ localizeText }) {
                   type={match.params.moviesType}
                 />
               )}
-              path="/movies/:moviesType/page/:page"
+              path="/moviesearcher/movies/:moviesType/page/:page"
             />
             <Route
               render={({ match }) => (
@@ -74,11 +74,11 @@ function App({ localizeText }) {
                   genreType={{ genreId: match.params.genreId }}
                 />
               )}
-              path="/genre/:genreId/page/:page"
+              path="/moviesearcher/genre/:genreId/page/:page"
             />
-            <Route component={MovieInfoContainer} path="/movie/:movieId" />
-            <Route component={PersonInfoContainer} path="/person/:personId" />
-            <Route component={() => renderMovies()} exact path="/" />
+            <Route component={MovieInfoContainer} path="/moviesearcher/movie/:movieId" />
+            <Route component={PersonInfoContainer} path="/moviesearcher/person/:personId" />
+            <Route component={() => renderMovies()} exact path="/moviesearcher/" />
           </Switch>
         </Main>
         <Footer />

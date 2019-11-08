@@ -207,7 +207,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText, currentLang
       {genres &&
         genres.map(genre => (
           <li key={genre.id}>
-            <GenreItem to={`/genre/${genre.id}/page/1`}>{genre.name}</GenreItem>
+            <GenreItem to={`/movieseacher/genre/${genre.id}/page/1`}>{genre.name}</GenreItem>
           </li>
         ))}
     </GenreList>
@@ -218,7 +218,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText, currentLang
       {cast &&
         cast.map((person, i) => {
           return (
-            <PersonItem to={`/person/${person.id}`} key={person.id}>
+            <PersonItem to={`/movieseacher/person/${person.id}`} key={person.id}>
               <PersonImage
                 src={
                   person.profile_path

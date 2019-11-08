@@ -26,7 +26,7 @@ const HeaderLink = styled(Link)`
 
 const Header = () => (
   <HeaderWrapper>
-    <HeaderLink to='/'>React Movie Searcher</HeaderLink>
+    <HeaderLink to='/moviesearcher'>React Movie Searcher</HeaderLink>
   </HeaderWrapper>
 )
 
