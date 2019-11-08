@@ -12,7 +12,9 @@ const getMoviesByGenreAndGenreTitle = async (genreId, page, currentLang) => {
     loadData(
       `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=${currentLang}&include_adult=false&include_video=false&page=${page}&with_genres=${genreId}`,
     ),
-    loadData(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${currentLang}`),
+    loadData(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${currentLang}`,
+    ),
   ]);
   return data;
 };

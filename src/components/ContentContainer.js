@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -52,7 +52,7 @@ const ContentContainer = ({ children, title }) => {
 
 ContentContainer.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string
-}
+  title: PropTypes.string,
+};
 
 export default ContentContainer;

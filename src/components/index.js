@@ -1,10 +1,10 @@
-export {default as Header} from './Header'
-export {default as ContentContainer} from './ContentContainer'
-export {default as Footer} from './Footer'
-export {default as MoviesList} from './MoviesList'
-export {default as Loader} from './Loader'
-export {default as MovieItem} from './MovieItem'
-export {default as MovieInfo} from './MovieInfo'
-export {default as Pagination} from './Pagination'
-export {default as ScrollToTop} from './ScrollToTop'
-export {default as PersonInfo} from './PersonInfo'
+export { default as Header } from './Header';
+export { default as ContentContainer } from './ContentContainer';
+export { default as Footer } from './Footer';
+export { default as MoviesList } from './MoviesList';
+export { default as Loader } from './Loader';
+export { default as MovieItem } from './MovieItem';
+export { default as MovieInfo } from './MovieInfo';
+export { default as Pagination } from './Pagination';
+export { default as ScrollToTop } from './ScrollToTop';
+export { default as PersonInfo } from './PersonInfo';

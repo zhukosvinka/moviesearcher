@@ -1,29 +1,28 @@
-import {GET_MOVIE_DATA} from '../constants/movieInfoConstants'
-import {LOAD_START} from '../constants'
+import { GET_MOVIE_DATA } from '../constants/movieInfoConstants';
+import { LOAD_START } from '../constants';
 
 const initialState = {
   isLoading: false,
-  data: {}
-}
+  data: {},
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_MOVIE_DATA + LOAD_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
 
-  case GET_MOVIE_DATA + LOAD_START:
-    return {
-      ...state,
-      isLoading: true
-    }
+    case GET_MOVIE_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload.movieInfo,
+        recommendations: action.payload.movieRecommendations,
+      };
 
-  case GET_MOVIE_DATA:
-    return {
-      ...state,
-      isLoading: false,
-      data: action.payload.movieInfo,
-      recommendations: action.payload.movieRecommendations
-    }
-
-  default:
-    return state
+    default:
+      return state;
   }
-}
+};

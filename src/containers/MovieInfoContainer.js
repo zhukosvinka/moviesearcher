@@ -14,11 +14,11 @@ const MovieInfoContainer = ({ match, currentLang }) => {
   const movieId = match.params.movieId;
 
   useEffect(() => {
-    if(movieData.title) document.title = movieData.title
+    if (movieData.title) document.title = movieData.title;
     return () => {
-      document.title = 'Moviesearcher'
-    }
-  })
+      document.title = 'Moviesearcher';
+    };
+  });
 
   useEffect(() => {
     dispatch(getMovieData(movieId, currentLang));

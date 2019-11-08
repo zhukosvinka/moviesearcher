@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContentContainer, Loader, MoviesList } from '../components';
@@ -8,7 +8,7 @@ import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 import noPosterImg from '../img/no-poster-img.jpg';
 import ImageGallery from 'react-image-gallery';
 import withLocalization from '../hocs/withLocalization';
-import {getFormattedDate} from '../helpers'
+import { getFormattedDate } from '../helpers';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -149,8 +149,8 @@ const VoteNumber = styled.div`
   color: #fff;
   font-weight: 600;
   box-shadow: -2px 9px 10px 1px rgba(0, 0, 0, 0.2);
-  background: rgb(2,0,36);
-  ${({color}) => color};
+  background: rgb(2, 0, 36);
+  ${({ color }) => color};
 `;
 
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText, currentLang }) => {
@@ -190,17 +190,40 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText, currentLang
   const director = isMovieInfoDataLoaded && crew.find(item => item.job === 'Director');
 
   const getVoteWrapperColor = () => {
-    const voteNumber = Number(vote_average)
-    if(voteNumber >= 7) return css`
-      background: linear-gradient(201deg, rgba(2,0,36,1) 0%, rgba(38,121,9,1) 0%, rgba(19,167,132,1) 45%, rgba(13,181,170,1) 57%, rgba(0,212,255,1) 100%);
-    `
-    if(voteNumber >= 4) return css`
-      background: linear-gradient(201deg, rgba(2,0,36,1) 0%, rgba(208,199,46,1) 0%, rgba(147,163,21,1) 45%, rgba(170,175,32,1) 59%, rgba(167,176,44,1) 100%);
-    `
+    const voteNumber = Number(vote_average);
+    if (voteNumber >= 7)
+      return css`
+        background: linear-gradient(
+          201deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(38, 121, 9, 1) 0%,
+          rgba(19, 167, 132, 1) 45%,
+          rgba(13, 181, 170, 1) 57%,
+          rgba(0, 212, 255, 1) 100%
+        );
+      `;
+    if (voteNumber >= 4)
+      return css`
+        background: linear-gradient(
+          201deg,
+          rgba(2, 0, 36, 1) 0%,
+          rgba(208, 199, 46, 1) 0%,
+          rgba(147, 163, 21, 1) 45%,
+          rgba(170, 175, 32, 1) 59%,
+          rgba(167, 176, 44, 1) 100%
+        );
+      `;
     return css`
-      background: linear-gradient(201deg, rgba(2,0,36,1) 0%, rgba(152,29,29,1) 0%, rgba(223,78,78,1) 45%, rgba(158,23,23,1) 63%, rgba(65,15,15,1) 100%);
-    `
-  }
+      background: linear-gradient(
+        201deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(152, 29, 29, 1) 0%,
+        rgba(223, 78, 78, 1) 45%,
+        rgba(158, 23, 23, 1) 63%,
+        rgba(65, 15, 15, 1) 100%
+      );
+    `;
+  };
 
   const renderGenresList = (
     <GenreList>

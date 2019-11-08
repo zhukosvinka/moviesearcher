@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ContentContainer, MovieItem } from '../components';
 import '../styles/css/style.css';
-import withLocalization from '../hocs/withLocalization'
+import withLocalization from '../hocs/withLocalization';
 
-const FavoritesMoviesContainer = ({localizeText}) => {
+const FavoritesMoviesContainer = ({ localizeText }) => {
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
   );

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ContentContainer, MoviesList, Loader } from '../components';
 import { debounce } from '../helpers';
 import { getMoviesBySearch } from '../actions/moviesListActions';
-import withLocalization from '../hocs/withLocalization'
+import withLocalization from '../hocs/withLocalization';
 
 const Input = styled.input`
   width: 100%;

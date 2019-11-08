@@ -24,5 +24,5 @@ export const LOCALIZATION = {
   biography: ['Биография', 'Biography'],
   creditsByPerson: ['Фильмы с участием', 'Movies featuring'],
   movieImages: ['Изображения фильма', 'Movie images'],
-  director: ['Режисер', 'Director']
+  director: ['Режисер', 'Director'],
 };
