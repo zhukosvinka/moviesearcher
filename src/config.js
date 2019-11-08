@@ -15,5 +15,12 @@ export const LOCALIZATION = {
   of: ['из', 'of'],
   addToFavorites: ['Добавить в избранные', 'Add to favorites'],
   removeFromFavorites: ['Убрать из избранного', 'Remove from favorites'],
-  cast: ['Актёрский состав', 'Cast']
+  cast: ['Актёрский состав', 'Cast'],
+  showAllCast: ['Показать весь список', 'Show all cast'],
+  name: ['Имя', 'Name'],
+  birthday: ['День рождения', 'Birthday'],
+  deathday: ['День смерти', 'Deathday'],
+  placeOfBirth: ['Место рождения', 'Place of birth'],
+  biography: ['Биография', 'Biography'],
+  creditsByPerson: ['Фильмы с участием', 'Movies featuring']
 };

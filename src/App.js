@@ -9,6 +9,7 @@ import MovieInfoContainer from './containers/MovieInfoContainer';
 import FavoritesMoviesContainer from './containers/FavoritesMoviesContainer';
 import SearchMovieContainer from './containers/SearchMovieContainer';
 import SettingsPanelContainer from './containers/SettingsPanelContainer';
+import PersonInfoContainer from './containers/PersonInfoContainer';
 import withLocaliztion from './hocs/withLocalization';
 
 const AllWrapper = styled.div`
@@ -76,6 +77,7 @@ function App({ localizeText }) {
               path="/genre/:genreId/page/:page"
             />
             <Route component={MovieInfoContainer} path="/movie/:movieId" />
+            <Route component={PersonInfoContainer} path="/person/:personId" />
             <Route component={() => renderMovies()} exact path="/" />
           </Switch>
         </Main>

@@ -92,18 +92,21 @@ const RecommendationsTitle = styled(DescriptionTitle)`
   display: block;
 `;
 
-const CastList = styled.ul`
+const CastList = styled.div`
   list-style: none;
   margin: 0;
   padding: 0;
   margin-top: 10px;
+  max-height: 400px;
+  overflow: auto;
 `;
 
-const PersonItem = styled.li`
+const PersonItem = styled(Link)`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
   cursor: pointer;
+  text-decoration: none;
   &:hover {
     background-color: #e3e3e3;
   }
@@ -140,8 +143,6 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     cast,
   } = movieData;
 
-  console.log(cast);
-
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
   );
@@ -164,9 +165,9 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
   const renderCastList = (
     <CastList>
       {cast &&
-        cast.slice(0, 5).map((person, i) => {
+        cast.map((person, i) => {
           return (
-            <PersonItem key={person.id}>
+            <PersonItem to={`/person/${person.id}`} key={person.id}>
               <PersonImage
                 src={
                   person.profile_path
@@ -182,6 +183,13 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
           );
         })}
     </CastList>
+  );
+
+  const renderRecommendations = () => (
+    <>
+      <RecommendationsTitle>{localizeText('recommendations')}: </RecommendationsTitle>
+      <MoviesList max={5} movies={recommendations.results} />
+    </>
   );
 
   const descriptionItems = [
@@ -206,13 +214,6 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
       type: renderCastList,
     },
   ];
-
-  const renderRecommendations = () => (
-    <>
-      <RecommendationsTitle>{localizeText('recommendations')}: </RecommendationsTitle>
-      <MoviesList max={5} movies={recommendations.results} />
-    </>
-  );
 
   return (
     <>

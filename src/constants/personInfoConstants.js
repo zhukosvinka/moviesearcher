@@ -1,0 +1,1 @@
+export const GET_PERSON_INFO = 'GET_PERSON_INFO'
