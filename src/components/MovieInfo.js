@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ContentContainer, Loader, MoviesList } from '../components';
 import { toggleFavoritesMovie } from '../actions/favoritesMoviesActions';
 import noPosterImg from '../img/no-poster-img.jpg';
+import ImageGallery from 'react-image-gallery';
 import withLocalization from '../hocs/withLocalization';
 
 const ContentWrapper = styled.div`
@@ -87,7 +88,7 @@ const FavoritesButton = styled.div`
   }
 `;
 
-const RecommendationsTitle = styled(DescriptionTitle)`
+const GroupTitle = styled(DescriptionTitle)`
   margin-top: 20px;
   display: block;
 `;
@@ -141,7 +142,18 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     id,
     recommendations,
     cast,
+    images,
   } = movieData;
+
+  const imagesForSlider = [];
+
+  if (images)
+    images.forEach(image =>
+      imagesForSlider.push({
+        original: `https://image.tmdb.org/t/p/w500/${image.file_path}`,
+        thumbnail: `https://image.tmdb.org/t/p/w500/${image.file_path}`,
+      }),
+    );
 
   const favoritesMovies = useSelector(
     ({ favoritesMoviesReducer }) => favoritesMoviesReducer.favoritesMovies,
@@ -185,12 +197,25 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     </CastList>
   );
 
-  const renderRecommendations = () => (
-    <>
-      <RecommendationsTitle>{localizeText('recommendations')}: </RecommendationsTitle>
-      <MoviesList max={5} movies={recommendations.results} />
-    </>
-  );
+  const renderImages = () => {
+    if (imagesForSlider.length === 0) return null;
+    return (
+      <>
+        <GroupTitle>{localizeText('movieImages')}: </GroupTitle>
+        <ImageGallery showPlayButton={false} showFullscreenButton={false} items={imagesForSlider} />
+      </>
+    );
+  };
+
+  const renderRecommendations = () => {
+    if (recommendations.results.length === 0) return null;
+    return (
+      <>
+        <GroupTitle>{localizeText('recommendations')}: </GroupTitle>
+        <MoviesList max={5} movies={recommendations.results} />
+      </>
+    );
+  };
 
   const descriptionItems = [
     {
@@ -249,6 +274,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
         ) : (
           <Loader />
         )}
+        {isMovieInfoDataLoaded && renderImages()}
         {isMovieInfoDataLoaded && renderRecommendations()}
       </ContentContainer>
     </>

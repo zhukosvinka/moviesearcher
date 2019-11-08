@@ -22,5 +22,6 @@ export const LOCALIZATION = {
   deathday: ['День смерти', 'Deathday'],
   placeOfBirth: ['Место рождения', 'Place of birth'],
   biography: ['Биография', 'Biography'],
-  creditsByPerson: ['Фильмы с участием', 'Movies featuring']
+  creditsByPerson: ['Фильмы с участием', 'Movies featuring'],
+  movieImages: ['Изображения фильма', 'Movie images']
 };

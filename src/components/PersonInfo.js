@@ -36,7 +36,6 @@ const PersonInfoTitle = styled.h3``
 const PersonInfoDescr = styled.div``
 
 const PersonInfo = ({personData, localizeText}) => {
-  console.log(personData)
   const {profile_path, name, birthday, place_of_birth, deathday, biography, movies} = personData
 
   const renderMoviesList = () => <MoviesList movies={movies}/>
@@ -75,7 +74,6 @@ const PersonInfo = ({personData, localizeText}) => {
         <PersonInfoList>
           {descriptionItems.map((item) => {
             if(!item.type) return null;
-            if(item.type === renderMoviesList) item.title = `${item.title} ${name}`
             return (
               <PersonInfoItem key={item.title}>
                 <PersonInfoTitle>{item.title}</PersonInfoTitle>
