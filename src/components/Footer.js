@@ -9,12 +9,24 @@ const Wrapper = styled.footer`
   align-items: center;
   justify-content: center;
   color: #A0A0A0;
+  flex-direction: column;
+`
+
+const Link = styled.a`
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  opacity: .7;
+  &:hover {
+    opacity: 1;
+  }
 `
 
 const Footer = () => {
   return (
     <Wrapper>
-      by padoctb
+      <Link href={'https://github.com/padoctb'}>  GitHub</Link>
+      <Link href={'https://developers.themoviedb.org/3/'}>API</Link>
     </Wrapper>
   )
 }

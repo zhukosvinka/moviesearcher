@@ -16,14 +16,20 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const MovieImage = styled.img`
+const MovieImageWrapper = styled.div`
   width: 300px;
   height: 500px;
-  border-radius: 5px;
+  position: relative;
   @media screen and (max-width: 500px) {
     width: 100%;
     height: auto;
   }
+`;
+
+const MovieImage = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 `;
 
 const MovieDescription = styled.ul`
@@ -131,6 +137,27 @@ const PersonCharacter = styled.div``;
 
 const LeftSide = styled.div``;
 
+const VoteNumber = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgb(2, 0, 36);
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: -2px 9px 10px 1px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    201deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(38, 121, 9, 1) 0%,
+    rgba(19, 167, 132, 1) 45%,
+    rgba(13, 181, 170, 1) 57%,
+    rgba(0, 212, 255, 1) 100%
+  );
+`;
+
 const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
   const {
     title,
@@ -143,7 +170,11 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
     recommendations,
     cast,
     images,
+    vote_average,
+    crew,
   } = movieData;
+
+  const dispatch = useDispatch();
 
   const imagesForSlider = [];
 
@@ -161,7 +192,7 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
 
   const isMovieInFavorites = favoritesMovies && favoritesMovies.find(movie => movie.id === id);
 
-  const dispatch = useDispatch();
+  const directorName = isMovieInfoDataLoaded && crew.find(item => item.job === 'Director').name;
 
   const renderGenresList = (
     <GenreList>
@@ -223,6 +254,10 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
       type: release_date,
     },
     {
+      title: localizeText('director'),
+      type: directorName,
+    },
+    {
       title: localizeText('tagline'),
       type: tagline,
     },
@@ -246,9 +281,12 @@ const MovieInfo = ({ movieData, isMovieInfoDataLoaded, localizeText }) => {
         {isMovieInfoDataLoaded ? (
           <ContentWrapper>
             <LeftSide>
-              <MovieImage
-                src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : noPosterImg}
-              />
+              <MovieImageWrapper>
+                <MovieImage
+                  src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : noPosterImg}
+                />
+                <VoteNumber>{vote_average}</VoteNumber>
+              </MovieImageWrapper>
               <FavoritesButton
                 isMovieInFavorites={isMovieInFavorites}
                 onClick={() => dispatch(toggleFavoritesMovie(movieData))}

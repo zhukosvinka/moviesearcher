@@ -23,5 +23,6 @@ export const LOCALIZATION = {
   placeOfBirth: ['Место рождения', 'Place of birth'],
   biography: ['Биография', 'Biography'],
   creditsByPerson: ['Фильмы с участием', 'Movies featuring'],
-  movieImages: ['Изображения фильма', 'Movie images']
+  movieImages: ['Изображения фильма', 'Movie images'],
+  director: ['Режисер', 'Director']
 };
